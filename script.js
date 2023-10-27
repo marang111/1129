@@ -6,8 +6,12 @@ $(function () {
   weather: $(".weather").html(),
   };
 
+ var screenWidth = $(window).width();
+            var screenHeight = $(window).height();
 
-
+            // 결과를 출력합니다.
+            console.log("화면 너비: " + screenWidth);
+            console.log("화면 높이: " + screenHeight);
 
   $('.hover-element').mouseover(function(){
      var imagePath = $(this).data('image');
@@ -104,5 +108,120 @@ $(window).scroll(function() {
       $("#header").animate({ "margin-top": 0 }, 0);
     };
   });
+
+
+// *****************************************표 겹치게***************************************** 
+
+
+  // 특정 요소의 위치를 알아냅니다.
+  $(document).ready(function() {
+      // 특정 요소의 위치를 알아냅니다.
+      var box1Position = $("#contents").position();
+
+      // 다른 요소에 위치 정보를 적용하여 겹치게 만듭니다.
+      $("#pixel").css({
+          top: box1Position.top + "px",
+          left: box1Position.left + "px"
+      });
+
+  });
+
+  //  window.addEventListener("scroll", function() {
+  //     // 스크롤 위치를 감지하여 #pixel을 동적으로 위치시킵니다.
+  //     var scrollPosition = window.scrollY;
+  //     var pixel = document.getElementById("pixel");
+
+  //     // #pixel의 위치를 조절
+  //     pixel.style.top = scrollPosition + "px";
+  // });
+
+
+// *****************************************pixel html 삭제********************************************
+
+  // window.addEventListener("load", function() {
+  //     // #pixel ID를 가진 td 요소의 내용 삭제
+  //     var pixelCell = document.getElementById("#pixel");
+
+  //     if (pixelCell) {
+  //         pixelCell.innerHTML = "";
+  //     }
+  // });
+  // window.addEventListener("load", function() {
+  //     // #pixel ID를 가진 요소의 HTML 내용 삭제
+  //     var pixelElement = document.getElementById("pixel");
+  //     if (pixelElement) {
+  //         pixelElement.innerHTML = "";
+  //     }
+  // });
+
+
+
+
+// *****************************************픽셀 인물 그림*******************************************
+
+
+
+
+
+// $(window).scroll(function() {
+//                 // 스크롤 위치를 가져옵니다.
+//                 var scrollPosition = $(window).scrollTop();
+
+
+//                 // 스크롤 위치에 따라 배경색을 변경합니다. 
+//                 if (scrollPosition < 500) {
+//                     $('#pixel_img').hide();
+//                 } else if (scrollPosition > 5000 && scrollPosition < 10000) {
+//                     $('#pixel_img').show();
+//                 } else {
+//                     $('#pixel_img').hide();
+//                 }
+//             });
+
+
+// *****************************************스크롤속도 ******************************************
+
+
+         var prevScrollPosition = 0;
+            var prevTimestamp = null;
+
+            $(window).scroll(function() {
+                var scrollPosition = $(window).scrollTop();
+                var timestamp = new Date().getTime();
+
+                if (prevTimestamp) {
+                    var scrollDistance = Math.abs(scrollPosition - prevScrollPosition);
+                    var timeElapsed = timestamp - prevTimestamp;
+                    var scrollSpeed = scrollDistance / timeElapsed;
+
+                    $("#scrollSpeed").text(scrollSpeed.toFixed(2));
+
+                    // 특정 스피드 이상인 경우 작업 수행
+                    if (scrollSpeed > 7) { // 예: 0.5 px/ms 이상
+                        // 스피드가 특정 값 이상일 때 원하는 작업 수행
+                        $('#pixel_img').css("opacity","1");
+                        // $("#contents").css("opacity","0")
+                        
+                    }
+                    else if (scrollSpeed < 1){
+                      $('#pixel_img').css("opacity","0");
+                      // $("#contents").css("opacity","1")
+                    }
+                }
+
+                prevScrollPosition = scrollPosition;
+                prevTimestamp = timestamp;
+            });
+
+
+
+
+
+
+
+
+
+
+
 
 });
